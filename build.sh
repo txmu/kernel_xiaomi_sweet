@@ -5,11 +5,13 @@
 ## Copy this script inside the kernel directory
 KERNEL_DEFCONFIG=sweet_defconfig ## Ini defconfignya setiap type hape beda2 (redmi note 10 pro menggunakan sweet_defconfig)
 ANYKERNEL3_DIR=$PWD/AnyKernel3/ ## ini anykernel nya gunanya untuk membukus hasil compile untuk siap flash
-FINAL_KERNEL_ZIP=Aghisna-Kernel-$(date '+%Y%m%d').zip ## INI NAMA KERNEL zip NYA
+FINAL_KERNEL_ZIP=Semlohey-Kernel-$(date '+%Y%m%d').zip ## INI NAMA KERNEL zip NYA
 export PATH="$HOME/cosmic/bin:$PATH"
 export ARCH=arm64
 export SUBARCH=arm64
 export KBUILD_COMPILER_STRING="$($HOME/cosmic/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
+
+git clone --depth=1 -b master https://github.com/azca27/AnyKernel.git AnyKernel3
 
 if ! [ -d "$HOME/cosmic" ]; then
 echo "Cosmic clang not found! Cloning..."
