@@ -9,6 +9,10 @@ FINAL_KERNEL_ZIP=Semlohey-Kernel-$(date '+%Y%m%d').zip ## INI NAMA KERNEL zip NY
 export PATH="$HOME/cosmic/bin:$PATH"
 export ARCH=arm64
 export SUBARCH=arm64
+export KBUILD_BUILD_USER=DjancoX
+export KBUILD_BUILD_HOST=SemloheyCox
+export BUILD_USERNAME=DjancoX
+export BUILD_HOSTNAME=SemloheyCox
 export KBUILD_COMPILER_STRING="$($HOME/cosmic/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 
 git clone --depth=1 -b master https://github.com/azca27/AnyKernel.git AnyKernel3
