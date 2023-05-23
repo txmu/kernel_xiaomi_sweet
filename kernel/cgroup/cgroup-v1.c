@@ -507,6 +507,8 @@ static int cgroup_pidlist_show(struct seq_file *s, void *v)
 	return 0;
 }
 
+extern int kp_active_mode(void);
+
 static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
 				     char *buf, size_t nbytes, loff_t off,
 				     bool threadgroup)
@@ -547,7 +549,17 @@ static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
 	if (!ret && !threadgroup &&
 		!memcmp(of->kn->parent->name, "top-app", sizeof("top-app")) &&
 		task_is_zygote(task->parent)) {
-		cpu_input_boost_kick_max(500);
+		/*
+		* Dont boost CPU & DDR if battery saver profile is enabled
+		* and boost CPU & DDR for 25ms if balanced profile is enabled
+		*/
+	if (kp_active_mode() == 3) {
+           cpu_input_boost_kick_max(1000);
+       } else if (kp_active_mode() == 2) {
+           cpu_input_boost_kick_max(1000);
+       } else {
+           pr_info("Battery Profile Active, Skipping Boost...\n");
+           }
 	}
 
 out_finish:
