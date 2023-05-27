@@ -1778,7 +1778,6 @@ out_unlock:
 	return retval ?: nbytes;
 }
 
-#ifdef CONFIG_CPUSETS_ASSIST
 static ssize_t cpuset_write_resmask_assist(struct kernfs_open_file *of,
 					   struct cs_target tgt, size_t nbytes,
 					   loff_t off)
@@ -1786,20 +1785,19 @@ static ssize_t cpuset_write_resmask_assist(struct kernfs_open_file *of,
 	pr_info("cpuset_assist: setting %s to %s\n", tgt.name, tgt.cpus);
 	return cpuset_write_resmask(of, tgt.cpus, nbytes, off);
 }
-#endif
 
 static ssize_t cpuset_write_resmask_wrapper(struct kernfs_open_file *of,
 					 char *buf, size_t nbytes, loff_t off)
 {
 #ifdef CONFIG_CPUSETS_ASSIST
 	static struct cs_target cs_targets[] = {
-		{ "audio-app",		CONFIG_CPUSET_AUDIO_APP },
-		{ "background",		CONFIG_CPUSET_BG },
-		{ "camera-daemon",	CONFIG_CPUSET_CAMERA },
-		{ "foreground",		CONFIG_CPUSET_FG },
-		{ "restricted",		CONFIG_CPUSET_RESTRICTED },
-		{ "system-background",	CONFIG_CPUSET_SYSTEM_BG },
-		{ "top-app",		CONFIG_CPUSET_TOP_APP },
+		/* Little-only cpusets go first */
+		{ "foreground",		"0-5" },
+		{ "background",		"0-2" },
+		{ "system-background",	"0-3" },
+		{ "restricted",		"0-5" },
+		{ "top-app",		"0-7" },
+		{ "camera-daemon",	"0-3,6-7" },
 	};
 	struct cpuset *cs = css_cs(of_css(of));
 	int i;
