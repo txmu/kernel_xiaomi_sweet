@@ -338,38 +338,38 @@ if CPU_FREQ_GOV_SCHEDUTIL
 
 config SCHEDUTIL_UP_RATE_LIMIT_LP
 	int "Default up rate-limit for schedutil on LITTLE CPUs"
-	default 0
+	default "0"
 	help
 	  This sets schedutil's default frequency up rate-limit in
 	  microseconds.
 
 config SCHEDUTIL_DOWN_RATE_LIMIT_LP
 	int "Default down rate-limit for schedutil on LITTLE CPUs"
-	default 0
+	default "0"
 	help
 	  This sets schedutil's default frequency down rate-limit in
 	  microseconds.
 
 config SCHEDUTIL_UP_RATE_LIMIT_PERF
 	int "Default up rate-limit for schedutil on BIG CPUs"
-	default 0
+	default "0"
 	help
 	  This sets schedutil's default frequency up rate-limit in
 	  microseconds.
 
 config SCHEDUTIL_DOWN_RATE_LIMIT_PERF
 	int "Default down rate-limit for schedutil on BIG CPUs"
-	default 0
+	default "0"
 	help
 	  This sets schedutil's default frequency down rate-limit in
 	  microseconds.
 
 config SCHEDUTIL_HISPEED_LOAD
 	int "Default hispeed load for schedutil"
-	dafault 90
+	default "90"
 	help
 	  This sets schedutil hispeed load when the cpu load exceeds
-	  the specified value. the cpu frequency will increase.
+	  the specified value the cpu frequency will increase.
 endif
 
 comment "CPU frequency scaling drivers"
