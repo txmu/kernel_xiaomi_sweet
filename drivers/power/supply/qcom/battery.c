@@ -1370,7 +1370,7 @@ static void pl_disable_forever_work(struct work_struct *work)
 
 #define CP_ILIM_COMP			200000
 #define CP_COOL_THRESHOLD		150
-#define CP_WARM_THRESHOLD		450
+#define CP_WARM_THRESHOLD		420
 #define SOFT_JEITA_HYSTERESIS		5
 static int pl_disable_vote_callback(struct votable *votable,
 		void *data, int pl_disable, const char *client)
@@ -1569,7 +1569,7 @@ static int pl_disable_vote_callback(struct votable *votable,
 					pr_err("Couldn't read batt temp, rc=%d\n", rc);
 				}
 				batt_temp = pval.intval;
-				/* if temp in cp soft jeita zone(15 to 45 degree), add comp */
+				/* if temp in cp soft jeita zone(15 to 42 degree), add comp */
 				if ((batt_temp < CP_WARM_THRESHOLD - SOFT_JEITA_HYSTERESIS)
 						&& (batt_temp > CP_COOL_THRESHOLD + SOFT_JEITA_HYSTERESIS))
 					cp_ilim += CP_ILIM_COMP;
