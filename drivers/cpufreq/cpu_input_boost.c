@@ -95,24 +95,13 @@ bool cpu_input_boost_within_input(unsigned long timeout_ms)
 
 static void __cpu_input_boost_kick(struct boost_drv *b)
 {
-	unsigned int period = input_boost_duration;
 
-	if (test_bit(SCREEN_OFF, &b->state))
+	if (test_bit(SCREEN_OFF, &b->state) || kp_active_mode() == 1)
 		return;
-
-	switch (kp_active_mode()) {
-	case 2:
-		period = input_boost_duration * 120;
-		break;
-	case 3:
-		period = input_boost_duration * 240;
-
-		break;
-	}
 
 	set_bit(INPUT_BOOST, &b->state);
 	if (!mod_delayed_work(system_unbound_wq, &b->input_unboost,
-			      msecs_to_jiffies(period)))
+			      msecs_to_jiffies(input_boost_duration)))
 		wake_up(&b->boost_waitq);
 }
 
